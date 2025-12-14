@@ -1,0 +1,57 @@
+<section class="page">
+    <div class="page-header">
+        <h2>Movimientos</h2>
+        <div class="controls">
+            <input placeholder="Buscar" [ngModel]="search()" (ngModelChange)="search.set($event)" class="search" name="search" />
+            <button class="btn-new" (click)="toggleForm()" [disabled]="loading()">Nuevo</button>
+        </div>
+    </div>
+
+    <div *ngIf="errorMessage()" class="error-message">
+        {{ errorMessage() }}
+    </div>
+
+    <div *ngIf="showForm()" class="form-area">
+        <form [formGroup]="form" (ngSubmit)="submit()">
+            <div class="row">
+                <label>Cuenta *</label>
+                <input formControlName="numeroCuenta" type="text" />
+                <div class="invalid" *ngIf="form.controls['numeroCuenta'].invalid && form.controls['numeroCuenta'].touched">
+                    Requerido</div>
+            </div>
+            <div class="row">
+                <label>Valor *</label>
+                <input formControlName="valor" type="number" step="0.01" />
+                <div class="invalid" *ngIf="form.controls['valor'].invalid && form.controls['valor'].touched">
+                    Requerido</div>
+            </div>
+            <div class="actions">
+                <button type="submit" [disabled]="form.invalid || loading()">{{ loading() ? 'Guardando...' : 'Guardar' }}</button>
+                <button type="button" (click)="cancel()" [disabled]="loading()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+
+    <div *ngIf="loading() && !showForm()" class="loading">Cargando movimientos...</div>
+
+    <table class="list" *ngIf="!loading() || showForm()">
+        <thead>
+            <tr>
+                <th>Número de Cuenta</th>
+                <th>Tipo</th>
+                <th>Valor</th>
+                <th>Saldo</th>
+                <th>Fecha</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let m of filtered()">
+                <td>{{ m.numeroCuenta }}</td>
+                <td>{{ m.tipoMovimiento }}</td>
+                <td>{{ m.valor | currency }}</td>
+                <td>{{ m.saldo | currency }}</td>
+                <td>{{ m.fecha | date:'short' }}</td>
+            </tr>
+        </tbody>
+    </table>
+</section>

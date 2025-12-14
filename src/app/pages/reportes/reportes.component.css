@@ -1,0 +1,150 @@
+.page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.controls {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.search-control {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.search-control label {
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.search-control input {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 100px;
+}
+
+button {
+    background: #ffd400;
+    border: 0;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-pdf:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.error-message {
+    background-color: #ffebee;
+    color: #c62828;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    border-left: 4px solid #c62828;
+}
+
+.loading {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-size: 14px;
+}
+
+.report-container {
+    background: white;
+    padding: 12px;
+    border-radius: 4px;
+}
+
+.report-header {
+    padding: 12px 0;
+    border-bottom: 2px solid #ffd400;
+    margin-bottom: 12px;
+}
+
+.report-header h3 {
+    margin: 0 0 8px 0;
+    color: #333;
+}
+
+.report-header p {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.cuentas-section {
+    margin-bottom: 24px;
+}
+
+.cuenta-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    background: #fafafa;
+    border-radius: 4px;
+    margin-bottom: 12px;
+}
+
+.cuenta-header h4 {
+    margin: 0;
+    color: #333;
+    font-size: 16px;
+}
+
+.saldo {
+    font-weight: 600;
+    color: #2e7d32;
+}
+
+.movimientos-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.movimientos-table th,
+.movimientos-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.movimientos-table th {
+    background-color: #fafafa;
+    font-weight: 600;
+    color: #333;
+}
+
+.movimientos-table tr:hover {
+    background-color: #f5f5f5;
+}
+
+.no-data {
+    text-align: center;
+    padding: 20px;
+    color: #999;
+    background: #fafafa;
+    border-radius: 4px;
+    margin: 12px 0;
+}
+
+input {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+select {
+    padding: 8px;
+    border: 1px solid #ddd;
+}

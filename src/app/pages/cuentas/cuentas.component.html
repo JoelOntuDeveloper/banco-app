@@ -1,0 +1,80 @@
+<section class="page">
+    <div class="page-header">
+        <h2>Cuentas</h2>
+        <div class="controls">
+            <input placeholder="Buscar" [ngModel]="search()" (ngModelChange)="search.set($event)" class="search"
+                name="search" />
+            <button class="btn-new" (click)="toggleForm()" [disabled]="loading()">Nuevo</button>
+        </div>
+    </div>
+
+    <div *ngIf="errorMessage()" class="error-message">
+        {{ errorMessage() }}
+    </div>
+
+    <div *ngIf="showForm()" class="form-area">
+        <form [formGroup]="form" (ngSubmit)="submit()">
+            <div class="row">
+                <label>Tipo de Cuenta *</label>
+                <select formControlName="tipoCuenta">
+                    <option value="AHORROS">Ahorros</option>
+                    <option value="CORRIENTE">Corriente</option>
+                </select>
+            </div>
+            <div class="row">
+                <label>Saldo Inicial *</label>
+                <input formControlName="saldoInicial" type="number" />
+                <div class="invalid"
+                    *ngIf="form.controls['saldoInicial'].invalid && form.controls['saldoInicial'].touched">
+                    Requerido</div>
+            </div>
+            <div class="row">
+                <div class="search-control">
+                    <label>Cliente *</label>
+                    <select formControlName="clienteId">
+                        <option [ngValue]="undefined">-- Selecciona --</option>
+
+                        @for (c of clientes()!; track c.clienteId) {
+                        <option [ngValue]="c.clienteId">
+                            {{ c.persona.nombre }} - {{ c.persona.identificacion }}
+                        </option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="actions">
+                <button type="submit" [disabled]="form.invalid || loading()">{{ loading() ? 'Guardando...' : 'Guardar'
+                    }}</button>
+                <button type="button" (click)="cancel()" [disabled]="loading()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+
+    <div *ngIf="loading() && !showForm()" class="loading">Cargando cuentas...</div>
+
+    <table class="list" *ngIf="!loading() || showForm()">
+        <thead>
+            <tr>
+                <th>Número</th>
+                <th>Tipo</th>
+                <th>Saldo Inicial</th>
+                <th>Estado</th>
+                <th>Cliente</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let c of filtered()">
+                <td>{{ c.numeroCuenta }}</td>
+                <td>{{ c.tipoCuenta }}</td>
+                <td>{{ c.saldoInicial | currency }}</td>
+                <td><span class="badge" [class.active]="c.estado === 'ACTIVA'">{{ c.estado }}</span></td>
+                <td>{{ c.clienteId }}</td>
+                <td>
+                    <button (click)="edit(c)" [disabled]="loading()">Editar</button>
+                    <button (click)="remove(c)" [disabled]="loading()">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>

@@ -1,0 +1,99 @@
+<section class="page">
+    <div class="page-header">
+        <h2>Clientes</h2>
+        <div class="controls">
+            <input placeholder="Buscar" [ngModel]="search()" (ngModelChange)="search.set($event)" class="search"
+                name="search" />
+            <button class="btn-new" (click)="toggleForm()" [disabled]="loading()">Nuevo</button>
+        </div>
+    </div>
+
+    @if(errorMessage()) {
+    <div class="error-message">
+        {{ errorMessage() }}
+    </div>
+    }
+
+    @if(showForm()) {
+    <div class="form-area">
+        <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+            <div class="row">
+                <label>Nombre *</label>
+                <input formControlName="nombre" />
+                <div class="invalid" *ngIf="form.controls['nombre'].invalid && form.controls['nombre'].touched">
+                    Requerido</div>
+            </div>
+            <div class="row">
+                <label>Identificación *</label>
+                <input formControlName="identificacion" />
+                <div class="invalid"
+                    *ngIf="form.controls['identificacion'].invalid && form.controls['identificacion'].touched">Requerido
+                </div>
+            </div>
+            <div class="row">
+                <label>Género</label>
+                <select formControlName="genero">
+                    <option value="">--Seleccionar--</option>
+                    <option value="MASCULINO">Masculino</option>
+                    <option value="FEMENINO">Femenino</option>
+                </select>
+            </div>
+            <div class="row">
+                <label>Edad</label>
+                <input formControlName="edad" type="number" />
+            </div>
+            <div class="row">
+                <label>Dirección</label>
+                <input formControlName="direccion" />
+            </div>
+            <div class="row">
+                <label>Teléfono</label>
+                <input formControlName="telefono" />
+            </div>
+
+            @if (!editing()) {
+            <div class="row">
+                <label>Contraseña</label>
+                <input formControlName="contrasena" type="password" />
+            </div>
+            }
+
+            <div class="actions">
+                <button type="submit" [disabled]="form.invalid || loading()">{{ loading() ? 'Guardando...' : 'Guardar'
+                    }}</button>
+                <button type="button" (click)="cancel()" [disabled]="loading()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+    }
+
+    @if(loading() && !showForm()) {
+    <div class="loading">Cargando clientes...</div>
+    }
+
+    @if(!loading() || showForm()) {
+    <table class="list">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Identificación</th>
+                <th>Teléfono</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let c of filtered()">
+                <td>{{ c.persona.nombre }}</td>
+                <td>{{ c.persona.identificacion }}</td>
+                <td>{{ c.persona.telefono || '-' }}</td>
+                <td><span class="badge" [class.active]="c.estado === 'ACTIVO'">{{ c.estado }}</span></td>
+                <td>
+                    <button (click)="edit(c)" [disabled]="loading()">Editar</button>
+                    <button (click)="remove(c)" [disabled]="loading()">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    }
+</section>

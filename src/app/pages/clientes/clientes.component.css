@@ -1,0 +1,178 @@
+.page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px
+}
+
+.controls {
+    display: flex;
+    gap: 8px;
+    align-items: center
+}
+
+input {
+    padding: 8px;
+    border: 1px solid #ddd
+}
+
+.btn-new {
+    background: #ffd400;
+    border: 0;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-new:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.form-area {
+    background: #fff9e6;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 4px;
+}
+
+.row {
+    margin-bottom: 8px
+}
+
+.row label {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: 600;
+    color: #333;
+}
+
+.row input,
+.row select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.row input:focus,
+.row select:focus {
+    border-color: #ffd400;
+    outline: none;
+    background-color: #fffbe6;
+}
+
+.invalid {
+    color: #b00020;
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.actions button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.actions button[type="submit"] {
+    background-color: #ffd400;
+    color: #000;
+}
+
+.actions button[type="submit"]:disabled {
+    background-color: #f0f0f0;
+    color: #999;
+    cursor: not-allowed;
+}
+
+.actions button[type="button"] {
+    background-color: #eee;
+    color: #333;
+}
+
+.actions button[type="button"]:disabled {
+    background-color: #ddd;
+    color: #999;
+    cursor: not-allowed;
+}
+
+.error-message {
+    background-color: #ffebee;
+    color: #c62828;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    border-left: 4px solid #c62828;
+}
+
+.loading {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-size: 14px;
+}
+
+.list {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.list th,
+.list td {
+    border-bottom: 1px solid #eee;
+    padding: 10px;
+    text-align: left;
+}
+
+.list th {
+    background-color: #fafafa;
+    font-weight: 600;
+}
+
+.list button {
+    padding: 6px 12px;
+    margin-right: 4px;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.list button:disabled {
+    background: #f0f0f0;
+    color: #999;
+    cursor: not-allowed;
+}
+
+.list button:hover:not(:disabled) {
+    background: #f5f5f5;
+}
+
+.badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    background: #ffebee;
+    color: #c62828;
+}
+
+.badge.active {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+

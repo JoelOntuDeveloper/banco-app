@@ -1,0 +1,119 @@
+<section class="page">
+  <div class="page-header">
+    <h2>Reportes de Estado de Cuenta</h2>
+
+    <div class="controls">
+      <div class="search-control">
+        <label>Cliente:</label>
+        <select
+          [(ngModel)]="clienteId"
+          name="clienteId"
+          (ngModelChange)="onClienteChange($event)"
+        >
+          <option [ngValue]="undefined">-- Selecciona --</option>
+
+          @for (c of clientes()!; track c.clienteId) {
+            <option [ngValue]="c.clienteId">
+              {{ c.persona.nombre }} - {{ c.persona.identificacion }}
+            </option>
+          }
+        </select>
+      </div>
+
+      <div class="date-controls">
+        <label>Desde:</label>
+        <input type="date" [(ngModel)]="fechaInicio" />
+
+        <label>Hasta:</label>
+        <input type="date" [(ngModel)]="fechaFin" />
+
+        <button
+          (click)="loadReporte()"
+          [disabled]="loadingReporte()"
+        >
+          Generar reporte
+        </button>
+      </div>
+
+      <button
+        class="btn-pdf"
+        (click)="downloadPdf()"
+        [disabled]="loadingPdf() || !reporte()"
+      >
+        {{ loadingPdf() ? 'Descargando...' : 'Descargar PDF' }}
+      </button>
+    </div>
+  </div>
+
+  @if (errorMessage()) {
+    <div class="error-message">
+      {{ errorMessage() }}
+    </div>
+  }
+
+  @if (loadingReporte()) {
+    <div class="loading">
+      Cargando reporte...
+    </div>
+  }
+
+  @if (reporte() && !loadingReporte()) {
+    <div class="report-container">
+
+      <div class="report-header">
+        <h3>Cliente: {{ selectedCliente()?.nombre }}</h3>
+        <p>Identificación: {{ selectedCliente()?.identificacion }}</p>
+      </div>
+
+      @for (cuenta of reporte()!.cuentas; track cuenta.numeroCuenta) {
+        <div class="cuentas-section">
+
+          <div class="cuenta-header">
+            <h4>
+              Cuenta: {{ cuenta.numeroCuenta }}
+              ({{ cuenta.tipoCuenta }})
+            </h4>
+            <span class="saldo">
+              Saldo: {{ cuenta.saldoActual | currency }}
+            </span>
+          </div>
+
+          @if (cuenta.movimientos && cuenta.movimientos.length > 0) {
+            <table class="movimientos-table">
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Tipo</th>
+                  <th>Valor</th>
+                  <th>Saldo</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (mov of cuenta.movimientos; track mov.movimientoId) {
+                  <tr>
+                    <td>{{ mov.fecha | date:'short' }}</td>
+                    <td>{{ mov.tipoMovimiento }}</td>
+                    <td>{{ mov.valor | currency }}</td>
+                    <td>{{ mov.saldoDespues | currency }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          } @else {
+            <div class="no-data">
+              Sin movimientos registrados
+            </div>
+          }
+
+        </div>
+      }
+
+    </div>
+  }
+
+  @if (!reporte() && !loadingReporte() && !errorMessage()) {
+    <div class="no-data">
+      Selecciona un cliente y carga el reporte
+    </div>
+  }
+</section>
