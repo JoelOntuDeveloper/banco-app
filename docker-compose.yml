@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: banco-frontend
+    ports:
+      - "4200:80"
+    networks:
+      - banco-network
+
+networks:
+  banco-network:
+    driver: bridge

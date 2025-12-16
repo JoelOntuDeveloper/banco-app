@@ -5,7 +5,7 @@ export const routes: Routes = [
 		path: '',
 		loadComponent: () => import('./layout.component').then(m => m.LayoutComponent),
 		children: [
-			{ path: '', redirectTo: 'clientes', pathMatch: 'full' },
+			{ path: '', redirectTo: './clientes', pathMatch: 'full' },
 			{ path: 'clientes', loadComponent: () => import('./pages/clientes/clientes.component').then(m => m.ClientesComponent) },
 			{ path: 'cuentas', loadComponent: () => import('./pages/cuentas/cuentas.component').then(m => m.CuentasComponent) },
 			{ path: 'movimientos', loadComponent: () => import('./pages/movimientos/movimientos.component').then(m => m.MovimientosComponent) },

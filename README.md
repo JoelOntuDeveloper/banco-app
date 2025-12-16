@@ -1,4 +1,4 @@
-**Banco App — Frontend**
+# Banco App — Frontend
 
 - **Descripción**: Frontend Angular 21 para la aplicación bancaria (CRUD de Clientes, Cuentas, Movimientos y reportes). Usa componentes standalone, servicios tipados y consumo de una API REST.
 
@@ -43,3 +43,30 @@ npm install
 
 **Repositorio backend**
 - Código del backend (API): https://github.com/JoelOntuDeveloper/ms-banco
+
+## Docker — Despliegue en contenedores
+
+### Requisitos
+- Docker y Docker Compose
+- Backend levantado en http://localhost:8081
+
+### Levantar la aplicación
+
+```bash
+docker-compose up -d --build
+```
+
+Acceder a: http://localhost:4200
+
+Detener:
+
+```bash
+docker-compose down
+```
+
+### Configuración de nginx
+
+El archivo [nginx.conf](nginx.conf) configura:
+- Servicio de archivos estáticos (JS, CSS, imágenes) con caché
+- Fallback a `index.html` para el enrutamiento SPA
+- Proxy a la API: `/api/*` → `http://localhost:8081/api/*`
